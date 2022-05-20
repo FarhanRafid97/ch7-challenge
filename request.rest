@@ -2,8 +2,8 @@ POST http://localhost:7899/user
 Content-Type: application/json
 
 {
-    "username":"farhan",
-    "email":"farhan@gmail.com",
+    "username":"farhanSyauqi",
+    "email":"farhansyauqi@gmail.com",
     "password":"123",
     "address":"padang",
     "phoneNumber":"1"
@@ -25,11 +25,12 @@ Content-Type: application/json
 DELETE http://localhost:7899/user/logout
 
 ###
-POST http://localhost:7899/user
+PUT http://localhost:7899/user/3
 Content-Type: application/json
 
-{
-    "username":"farhan",
-    "email":"farhan@gmail.com",
-    "password":"123",
+{        
+      "address":"jawa 3"
 }
+
+###
+DELETE http://localhost:7899/user/2

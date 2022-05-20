@@ -3,9 +3,7 @@ const bcrypt = require('bcrypt');
 
 const getUser = async (req, res) => {
   const data = await UserGame.findAll({
-    include: {
-      model: UserGameBiodata,
-    },
+    include: 'userGameBiodata',
   });
   res.status(200).json(data);
 };
@@ -19,7 +17,7 @@ const addUser = async (req, res) => {
       email: req.body.email,
       password: hashPassword,
     });
-    if (!newUser) return res.status(400).json({ msg: 'data gagal di simpan' });
+
     await UserGameBiodata.create({
       id_user: newUser.id,
       address: req.body.address,
@@ -34,12 +32,20 @@ const editUser = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const dataUser = await UserGame.findOne({
+    const userGame = await UserGame.findOne({
       where: {
         id: id,
       },
     });
-    const hashPassword = await bcrypt.hash(req.body.password, 12);
+    const userGameBio = await UserGameBiodata.findOne({
+      where: {
+        id_user: id,
+      },
+    });
+
+    const hashPassword = req.body.passowrd
+      ? await bcrypt.hash(req.body.password, 12)
+      : userGame.password;
 
     await UserGame.update(
       {
@@ -53,8 +59,8 @@ const editUser = async (req, res) => {
         },
       }
     );
-    if (!newUser) return res.status(400).json({ msg: 'data gagal di simpan' });
-    await UserGameBiodata.create(
+
+    await UserGameBiodata.update(
       {
         address: req.body.address,
         phoneNumber: req.body.phoneNumber,
@@ -62,7 +68,7 @@ const editUser = async (req, res) => {
       },
       {
         where: {
-          id: id,
+          id_user: id,
         },
       }
     );
@@ -71,4 +77,19 @@ const editUser = async (req, res) => {
   }
 };
 
-module.exports = { addUser, getUser, editUser };
+const deleteUser = async (req, res) => {
+  const { id } = req.params;
+  await UserGame.destroy({
+    where: {
+      id: id,
+    },
+  });
+  await UserGameBiodata.destroy({
+    where: {
+      id_user: id,
+    },
+  });
+  res.status(200).json({ msg: 'data berhasil di hapus' });
+};
+
+module.exports = { getUser, addUser, editUser, deleteUser };
