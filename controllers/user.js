@@ -21,49 +21,34 @@ const addUser = async (req, res) => {
     await UserGameBiodata.create({
       id_user: newUser.id,
       address: req.body.address,
+      lastName: req.body.lastName,
+      firstName: req.body.firstName,
       phoneNumber: req.body.phoneNumber,
       birthday: req.body.birthday || null,
     });
+    const dataUser = await UserGame.findOne({
+      where: {
+        id: newUser.id,
+      },
+      include: 'userGameBiodata',
+    });
+    res.status(200).json(dataUser);
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }
 };
 const editUser = async (req, res) => {
   const { id } = req.params;
-
+  const update = req.body;
   try {
-    const userGame = await UserGame.findOne({
-      where: {
-        id: id,
-      },
-    });
-    const userGameBio = await UserGameBiodata.findOne({
+    const data = await UserGameBiodata.findOne({
       where: {
         id_user: id,
       },
     });
-
-    const hashPassword = req.body.passowrd
-      ? await bcrypt.hash(req.body.password, 12)
-      : userGame.password;
-
-    await UserGame.update(
-      {
-        username: req.body.username,
-        email: req.body.email,
-        password: hashPassword,
-      },
-      {
-        where: {
-          id: id,
-        },
-      }
-    );
-
     await UserGameBiodata.update(
       {
-        address: req.body.address,
-        phoneNumber: req.body.phoneNumber,
+        ...update,
         birthday: req.body.birthday || null,
       },
       {
