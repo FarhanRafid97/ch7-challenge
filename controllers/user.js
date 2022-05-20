@@ -11,6 +11,14 @@ const getUser = async (req, res) => {
 const addUser = async (req, res) => {
   const postData = req.body;
   try {
+    const findUsername = await UserGame.findOne({
+      where: {
+        username: req.body.username,
+      },
+    });
+
+    if (findUsername)
+      return res.status(400).json({ msg: 'data sudah terdaftar' });
     const hashPassword = await bcrypt.hash(req.body.password, 12);
 
     const newUser = await UserGame.create({
@@ -35,6 +43,7 @@ const addUser = async (req, res) => {
     res.status(400).json({ msg: error.message });
   }
 };
+
 const editUser = async (req, res) => {
   const { id } = req.params;
   const update = req.body;
