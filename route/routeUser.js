@@ -1,6 +1,7 @@
 const express = require('express');
 const {
   addUser,
+  detailUser,
   getUser,
   deleteUser,
   editUser,
@@ -16,8 +17,9 @@ const { isLogged } = require('../middleware/isLogged');
 
 const routerUser = express.Router();
 
-routerUser.post('/user', addUser);
 routerUser.get('/user', getUser);
+routerUser.get('/user/:id', detailUser);
+routerUser.post('/user', addUser);
 routerUser.put('/user/:id', editUser);
 routerUser.delete('/user/:id', deleteUser);
 
