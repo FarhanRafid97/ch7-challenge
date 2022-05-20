@@ -6,9 +6,12 @@ const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const methodOverride = require('method-override');
+const dotenv = require('dotenv');
 const { routeView } = require('./route/routeView');
 
 const PORT = 7899;
+
+dotenv.config();
 
 const app = express();
 app.set('view engine', 'ejs');

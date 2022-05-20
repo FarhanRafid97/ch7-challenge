@@ -1,21 +1,22 @@
 const { UserGame, UserGameBiodata } = require('../models');
 
 const loginUserView = async (req, res) => {
-  try {
-    res.render('pages/loginPage/login');
-  } catch (error) {
-    console.log(error.message);
-  }
+  res.render('pages/loginPage/login');
 };
 const registerView = async (req, res) => {
+  res.render('pages/loginPage/register', {
+    msg: req.flash('msg'),
+    msgFail: req.flash('msgFail'),
+  });
+};
+const dashboardView = async (req, res) => {
   try {
-    res.render('pages/loginPage/register', {
+    res.render('pages/dashboard/dashboard', {
       msg: req.flash('msg'),
-      msgFail: req.flash('msgFail'),
     });
   } catch (error) {
     console.log(error.message);
   }
 };
 
-module.exports = { loginUserView, registerView };
+module.exports = { loginUserView, registerView, dashboardView };

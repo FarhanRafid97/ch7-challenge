@@ -14,7 +14,7 @@ const userLogin = async (req, res) => {
     );
     if (!isPasswordCorrect)
       return res.status(400).json({ msg: 'password anda salah' });
-    res.cookie('logged', 'secret', {
+    res.cookie('logged', process.env.COOKIES_SECRET_KEY, {
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000,
     });

@@ -1,8 +1,8 @@
 const isLogged = (req, res, next) => {
-  const authHeader = req.headers.cookie;
-  const dataCookie = authHeader.split(' ')[1];
-  console.log(dataCookie);
-  if (!dataCookie) return res.status(400).json({ msg: 'login dlu' });
+  const authHeader = req.cookies.logged;
+
+  console.log(authHeader);
+  if (authHeader !== process.env.COOKIES_SECRET_KEY) return res.redirect('/');
 
   next();
 };

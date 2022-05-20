@@ -1,5 +1,9 @@
 const express = require('express');
-const { loginUserView, registerView } = require('../controllers/viewUser', {
+const {
+  loginUserView,
+  registerView,
+  dashboardView,
+} = require('../controllers/viewUser', {
   layout: 'layouts/main',
 });
 
@@ -9,5 +13,6 @@ const routeView = express.Router();
 
 routeView.get('/', loginUserView);
 routeView.get('/register', registerView);
+routeView.get('/dashboard', isLogged, dashboardView);
 
 module.exports = { routeView };

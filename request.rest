@@ -12,10 +12,10 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:7899/user
+GET http://localhost:7899/api/user
 
 ###
-POST http://localhost:7899/user/login
+POST http://localhost:7899/api/login
 Content-Type: application/json
 
 {
@@ -24,7 +24,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:7899/user/logout
+DELETE http://localhost:7899/api/logout
 
 ###
 PUT http://localhost:7899/user/7
