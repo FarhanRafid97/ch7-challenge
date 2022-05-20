@@ -28,8 +28,10 @@ const addUser = async (req, res) => {
       },
     });
 
-    if (findUsername)
-      return res.status(400).json({ msg: 'data sudah terdaftar' });
+    if (findUsername) {
+      req.flash('msgFail', 'username alredy exist');
+      return res.redirect('/register');
+    }
     const hashPassword = await bcrypt.hash(req.body.password, 12);
 
     const newUser = await UserGame.create({
@@ -49,7 +51,8 @@ const addUser = async (req, res) => {
       },
       include: 'userGameBiodata',
     });
-    res.status(200).json(dataUser);
+    req.flash('msg', 'Registration success');
+    res.status(200).redirect('/register');
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }

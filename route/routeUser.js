@@ -17,15 +17,15 @@ const { isLogged } = require('../middleware/isLogged');
 
 const routerUser = express.Router();
 
-routerUser.get('/user', getUser);
-routerUser.get('/user/:id', detailUser);
-routerUser.post('/user', addUser);
-routerUser.put('/user/:id', editUser);
-routerUser.delete('/user/:id', deleteUser);
+routerUser.get('/api/user', getUser);
+routerUser.get('/api/user/:id', detailUser);
+routerUser.post('/api/user', addUser);
+routerUser.put('/api/user/:id', editUser);
+routerUser.delete('/api/user/:id', deleteUser);
 
 //====> AUTH USER  <===
-routerUser.post('/user/login', userLogin);
-routerUser.put('/user/changePassword/:id', changePassword);
-routerUser.delete('/user/logout', logoutUser);
+routerUser.post('/api/user/login', userLogin);
+routerUser.put('/api/user/changePassword/:id', changePassword);
+routerUser.delete('/api/user/logout', logoutUser);
 
 module.exports = { routerUser };

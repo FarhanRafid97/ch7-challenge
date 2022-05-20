@@ -46,4 +46,5 @@ Content-Type: application/json
      "newPassword":"322"
 }
 
-
+###
+GET http://localhost:7899/user/72

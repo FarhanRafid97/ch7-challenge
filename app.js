@@ -6,6 +6,7 @@ const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const methodOverride = require('method-override');
+const { routeView } = require('./route/routeView');
 
 const PORT = 7899;
 
@@ -29,7 +30,9 @@ app.use(methodOverride('_method'));
 app.use(expressLayout);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.set('layout', './layouts/main');
 app.use(routerUser);
+app.use(routeView);
 
 app.listen(PORT, () => {
   console.log(`Listening on http://localhost:${PORT}`);
