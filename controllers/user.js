@@ -9,23 +9,21 @@ const getUser = async (req, res) => {
 };
 
 const addUser = async (req, res) => {
+  const postData = req.body;
   try {
     const hashPassword = await bcrypt.hash(req.body.password, 12);
 
     const newUser = await UserGame.create({
-      username: req.body.username,
-      email: req.body.email,
+      ...postData,
       password: hashPassword,
     });
 
     await UserGameBiodata.create({
+      ...postData,
       id_user: newUser.id,
-      address: req.body.address,
-      lastName: req.body.lastName,
-      firstName: req.body.firstName,
-      phoneNumber: req.body.phoneNumber,
       birthday: req.body.birthday || null,
     });
+
     const dataUser = await UserGame.findOne({
       where: {
         id: newUser.id,

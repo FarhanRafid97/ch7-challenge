@@ -41,4 +41,36 @@ const logoutUser = async (req, res) => {
   }
 };
 
-module.exports = { userLogin, logoutUser };
+const changePassword = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const dataUser = await UserGame.findOne({
+      where: {
+        id: id,
+      },
+    });
+
+    const matchPassword = await bcrypt.compare(
+      req.body.oldPassword,
+      dataUser.password
+    );
+
+    if (!matchPassword)
+      return res.status(400).json({ msg: 'password tidak sama' });
+
+    const newPassword = await bcrypt.hash(req.body.newPassword, 12);
+
+    const updatedData = await UserGame.update(
+      {
+        ...UserGame,
+        password: newPassword,
+      },
+      { where: { id: id } }
+    );
+    res.status(200).json(updatedData);
+  } catch (error) {
+    res.status(400).json({ msg: error.message });
+  }
+};
+
+module.exports = { userLogin, logoutUser, changePassword };

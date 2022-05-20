@@ -2,8 +2,10 @@ POST http://localhost:7899/user
 Content-Type: application/json
 
 {
-    "username":"farhanSyauqi",
-    "email":"farhansyauqi@gmail.com",
+    "username":"dika",
+    "email":"dikagege@gmail.com",
+    "firstName":"dika",
+    "lastName":"syauqi",
     "password":"123",
     "address":"padang",
     "phoneNumber":"1"
@@ -17,7 +19,7 @@ POST http://localhost:7899/user/login
 Content-Type: application/json
 
 {
-     "username":"farhan",
+     "username":"dika",
     "password":"123"
 }
 
@@ -25,12 +27,21 @@ Content-Type: application/json
 DELETE http://localhost:7899/user/logout
 
 ###
-PUT http://localhost:7899/user/3
+PUT http://localhost:7899/user/7
 Content-Type: application/json
 
-{        
+{            
       "address":"jawa 3"
 }
 
 ###
-DELETE http://localhost:7899/user/2
+DELETE http://localhost:7899/user/8
+
+###
+PUT http://localhost:7899/user/changePassword/9
+Content-Type: application/json
+
+{
+     "oldPassword":"123",
+     "newPassword":"322"
+}

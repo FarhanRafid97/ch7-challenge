@@ -5,7 +5,13 @@ const {
   deleteUser,
   editUser,
 } = require('../controllers/user');
-const { userLogin, logoutUser } = require('../controllers/authUser');
+
+//=== auth user
+const {
+  userLogin,
+  logoutUser,
+  changePassword,
+} = require('../controllers/authUser');
 const { isLogged } = require('../middleware/isLogged');
 
 const routerUser = express.Router();
@@ -17,6 +23,7 @@ routerUser.delete('/user/:id', deleteUser);
 
 //====> AUTH USER  <===
 routerUser.post('/user/login', userLogin);
+routerUser.put('/user/changePassword/:id', changePassword);
 routerUser.delete('/user/logout', logoutUser);
 
 module.exports = { routerUser };
