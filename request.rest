@@ -1,0 +1,35 @@
+POST http://localhost:7899/user
+Content-Type: application/json
+
+{
+    "username":"farhan",
+    "email":"farhan@gmail.com",
+    "password":"123",
+    "address":"padang",
+    "phoneNumber":"1"
+}
+
+###
+GET http://localhost:7899/user
+
+###
+POST http://localhost:7899/user/login
+Content-Type: application/json
+
+{
+     "username":"farhan",
+    "password":"123"
+}
+
+###
+DELETE http://localhost:7899/user/logout
+
+###
+POST http://localhost:7899/user
+Content-Type: application/json
+
+{
+    "username":"farhan",
+    "email":"farhan@gmail.com",
+    "password":"123",
+}

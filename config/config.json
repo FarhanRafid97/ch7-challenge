@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "farhan_binar",
+    "password": "farhan322",
+    "database": "challenge_ch6_development",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "farhan_binar",
+    "password": "farhan322",
+    "database": "challenge_ch6_test",
+    "host": "localhost",
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "farhan_binar",
+    "password": "farhan322",
+    "database": "challenge_ch6_production",
+    "host": "localhost",
+    "dialect": "postgres"
+  }
+}
