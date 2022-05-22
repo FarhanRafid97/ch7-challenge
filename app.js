@@ -28,7 +28,7 @@ app.use(
 );
 app.use(flash());
 //======
-
+app.use(express.static('public'));
 app.use(methodOverride('_method'));
 app.use(expressLayout);
 app.use(express.json());

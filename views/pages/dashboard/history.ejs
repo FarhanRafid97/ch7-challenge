@@ -1,11 +1,11 @@
 <div class="d-flex align-items-start mt-5 flex-column">
-  <h3 class="mb-2"><%= pageTitle %></h3>
+  <h3 class="mb-2 text-secondary"><%= pageTitle %></h3>
 </div>
 <% if (msg.length !== 0) { %>
   <div class="alert alert-success" role="alert"><%= msg %></div>
   <% } %>
-<div class="table-responsive mt-3">
-  <table class="table container-md">
+<div class="table-responsive mt-3 ">
+  <table class="table container-md"     style="color: #cbd5e0">
     <thead>
       <tr>
         <th scope="col">#</th>
@@ -40,5 +40,5 @@
       <% }) %>
     </tbody>
   </table>
-  <a type="button" href="/dashboard" class="btn btn-success px-5">Back</a>
+  <button type="button"  onclick="history.back()"" class="btn btn-success px-5">Back</button>
 </div>

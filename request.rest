@@ -68,6 +68,6 @@ DELETE http://localhost:7899/dashboard/history/delete/20
 Content-Type: application/json
 
 {
-     "id":1
+     "id":5
 }
 

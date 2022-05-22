@@ -1,7 +1,15 @@
-<h3 class="my-3 mt-5">DETAIL USER</h3>
-
-<div class="table-responsive mt-3">
-  <table class="table table-bordered border-dark table-responsive-md">
+<h3 class="my-3 mt-5 text-secondary">DETAIL USER</h3>
+<a
+  type="button"
+  href="/dashboard/history/<%= dataUser.id %>"
+  class="btn btn-secondary px-5"
+  >History</a
+>
+<div class="table-responsive mt-3 colorDark">
+  <table
+    class="table table-bordered border-secondary table-responsive-md colorDark"
+    style="color: #cbd5e0"
+  >
     <tbody>
       <tr>
         <th scope="row">Username</th>
@@ -43,11 +51,5 @@
   </table>
   <div>
     <a type="button" href="/dashboard" class="btn btn-success px-5">Back</a>
-    <a
-      type="button"
-      href="/dashboard/history/<%= dataUser.id %>"
-      class="btn btn-warning px-5"
-      >History</a
-    >
   </div>
 </div>
