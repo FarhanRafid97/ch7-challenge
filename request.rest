@@ -1,4 +1,4 @@
-POST http://localhost:7899/user
+POST http://localhost:7899/api/user
 Content-Type: application/json
 
 {
@@ -8,7 +8,8 @@ Content-Type: application/json
     "lastName":"syauqi",
     "password":"123",
     "address":"padang",
-    "phoneNumber":"1"
+    "phoneNumber":"1",
+    "jenisKelamin":"laki-laki"
 }
 
 ###
@@ -35,7 +36,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:7899/user/8
+DELETE http://localhost:7899/api/user/6
 
 ###
 PUT http://localhost:7899/user/changePassword/9
@@ -48,3 +49,16 @@ Content-Type: application/json
 
 ###
 GET http://localhost:7899/user/72
+
+
+###
+POST http://localhost:7899/history
+Content-Type: application/json
+
+{
+     "idUser": 23,
+      "score": 60,
+      "gold": 80,
+      "winLose": true,
+      "exp": 80
+}

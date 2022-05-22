@@ -13,7 +13,7 @@
             <% } else if (msgFail.length !== 0) { %>
             <div class="alert alert-danger" role="alert"><%= msgFail %></div>
             <% } %>
-            <form method="POST" action="/api/user">
+            <form method="POST" action="/dashboard/create">
               <div class="row">
                 <div class="col-md-6 mb-4">
                   <div class="form-outline">
@@ -145,7 +145,12 @@
                   type="submit"
                   value="Submit"
                 />
-                <a href="/" class="link-dark">Alredy Have Account?</a>
+                <a
+                  type="button"
+                  href="/dashboard"
+                  class="btn btn-secondary py-2 px-5"
+                  >Back</a
+                >
               </div>
             </form>
           </div>

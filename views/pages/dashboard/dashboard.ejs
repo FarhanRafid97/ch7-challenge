@@ -1,1 +1,49 @@
-<h3>welcome to dashboard</h3>
+<div class="d-flex align-items-start mt-5 flex-column">
+  <h3 class="mb-2">WELCOME</h3>
+  <a class="btn btn-secondary" href="/dashboard/create" role="button">
+    <i class="bi-plus-lg"></i> Add New User
+  </a>
+</div>
+<div class="table-responsive mt-3">
+  <table class="table container-md">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Username</th>
+        <th scope="col">Email</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% dataUserGames.map((user,index)=>{ %>
+      <tr>
+        <th scope="row"><%= index + 1 %></th>
+        <td class="w-50"><%= user.username %></td>
+        <td><%= user.email %></td>
+        <td>
+          <div class="d-flex">
+            <a
+              type="button"
+              href="/dashboard/<%= user.id %>"
+              class="btn btn-dark me-2"
+              >Detail</a
+            >
+            <a
+              type="button"
+              href="/dashboard/edit/<%= user.id %>"
+              class="btn btn-success me-2"
+              >EDIT</a
+            >
+            <form
+              method="POST"
+              action="/api/user/<%= user.id %>?_method=DELETE"
+            >
+              <button type="submit" class="btn btn-danger">DELETE</button>
+            </form>
+          </div>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>

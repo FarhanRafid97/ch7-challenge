@@ -3,20 +3,9 @@ const bcrypt = require('bcrypt');
 
 const getUser = async (req, res) => {
   const data = await UserGame.findAll({
-    include: 'userGameBiodata',
+    include: ['userGameBiodata', 'UserGameHistories'],
   });
   res.status(200).json(data);
-};
-const detailUser = async (req, res) => {
-  const { id } = req.params;
-  const dataUser = await UserGame.findOne({
-    where: {
-      id: id,
-    },
-    include: 'userGameBiodata',
-  });
-  if (!dataUser) return res.status(400).json({ msg: 'data tidak ada' });
-  res.status(200).json(dataUser);
 };
 
 const addUser = async (req, res) => {
@@ -41,16 +30,10 @@ const addUser = async (req, res) => {
 
     await UserGameBiodata.create({
       ...postData,
-      id_user: newUser.id,
+      idUser: newUser.id,
       birthday: req.body.birthday || null,
     });
 
-    const dataUser = await UserGame.findOne({
-      where: {
-        id: newUser.id,
-      },
-      include: 'userGameBiodata',
-    });
     req.flash('msg', 'Registration success');
     res.status(200).redirect('/register');
   } catch (error) {
@@ -64,20 +47,21 @@ const editUser = async (req, res) => {
   try {
     const data = await UserGameBiodata.findOne({
       where: {
-        id_user: id,
+        idUser: id,
       },
     });
     await UserGameBiodata.update(
       {
         ...update,
-        birthday: req.body.birthday || null,
+        birthday: req.body.birthday || data.birthday,
       },
       {
         where: {
-          id_user: id,
+          idUser: id,
         },
       }
     );
+    res.redirect('/dashboard');
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }
@@ -85,17 +69,20 @@ const editUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
   const { id } = req.params;
+  await UserGameBiodata.destroy({
+    where: {
+      idUser: id,
+    },
+  });
+
   await UserGame.destroy({
     where: {
       id: id,
     },
   });
-  await UserGameBiodata.destroy({
-    where: {
-      id_user: id,
-    },
-  });
-  res.status(200).json({ msg: 'data berhasil di hapus' });
+
+  req.flash('msg', 'delete data success');
+  res.redirect('/dashboard');
 };
 
-module.exports = { getUser, addUser, editUser, deleteUser, detailUser };
+module.exports = { getUser, addUser, editUser, deleteUser };

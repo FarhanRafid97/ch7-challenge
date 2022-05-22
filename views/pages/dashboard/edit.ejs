@@ -7,13 +7,13 @@
           style="border-radius: 15px"
         >
           <div class="card-body p-4 p-md-5">
-            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Edit Biodata User</h3>
             <% if (msg.length !== 0) { %>
             <div class="alert alert-success" role="alert"><%= msg %></div>
             <% } else if (msgFail.length !== 0) { %>
             <div class="alert alert-danger" role="alert"><%= msgFail %></div>
             <% } %>
-            <form method="POST" action="/api/user">
+            <form method="POST" action="/api/user/<%=userBio.idUser %>?_method=PUT">
               <div class="row">
                 <div class="col-md-6 mb-4">
                   <div class="form-outline">
@@ -23,6 +23,7 @@
                       id="firstName"
                       class="form-control form-control-lg"
                       required
+                      value="<%=userBio.firstName %>"
                     />
                     <label class="form-label" for="firstName">First Name</label>
                   </div>
@@ -34,6 +35,7 @@
                       required
                       type="text"
                       id="lastName"
+                      value="<%=userBio.lastName %>"
                       class="form-control form-control-lg"
                     />
                     <label class="form-label" for="lastName">Last Name</label>
@@ -45,49 +47,10 @@
                 <div class="col-md-6 mb-4 pb-2">
                   <div class="form-outline">
                     <input
-                      name="username"
-                      required
-                      type="text"
-                      id="emailAddress"
-                      class="form-control form-control-lg"
-                    />
-                    <label class="form-label" for="emailAddress"
-                      >Username</label
-                    >
-                  </div>
-                </div>
-                <div class="col-md-6 mb-4 pb-2">
-                  <div class="form-outline">
-                    <input
-                      name="password"
-                      required
-                      type="password"
-                      id="phoneNumber"
-                      class="form-control form-control-lg"
-                    />
-                    <label class="form-label" for="phoneNumber">Password</label>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6 mb-4 pb-2">
-                  <div class="form-outline">
-                    <input
-                      name="email"
-                      required
-                      type="email"
-                      id="emailAddress"
-                      class="form-control form-control-lg"
-                    />
-                    <label class="form-label" for="emailAddress">Email</label>
-                  </div>
-                </div>
-                <div class="col-md-6 mb-4 pb-2">
-                  <div class="form-outline">
-                    <input
                       name="phoneNumber"
                       required
                       type="tel"
+                      value="<%=userBio.phoneNumber %>"
                       id="phoneNumber"
                       class="form-control form-control-lg"
                     />
@@ -102,14 +65,13 @@
                   <div class="form-outline">
                     <input
                       name="birthday"
-                      required
+                      
                       type="date"
-                      id="emailAddress"
+                      value="<%= userBio.birthday %>"
+                      id="birthday"
                       class="form-control form-control-lg"
                     />
-                    <label class="form-label" for="emailAddress"
-                      >Birthday</label
-                    >
+                    <label class="form-label" for="birthday">Birthday</label>
                   </div>
                 </div>
                 <div class="col-md-6 mb-4">
@@ -118,9 +80,9 @@
                     name="jenisKelamin"
                   >
                     <option value="1" selected disabled>SELECT GENDER</option>
-                    <option value="Female">Female</option>
-                    <option value="Male">Male</option>
-                    <option value="Other">Other</option>
+                    <option value="Female" <%= userBio.jenisKelamin === "Female" ? 'selected' : ''%>>Female</option>
+                    <option value="Male" <%= userBio.jenisKelamin === "Male" ? 'selected' : ''%>>Male</option>
+                    <option value="Other" <%= userBio.jenisKelamin === "Other" ? 'selected' : ''%>>Other</option>
                   </select>
                   <label class="form-label" for="emailAddress">Gender</label>
                 </div>
@@ -136,7 +98,7 @@
                     name="address"
                     rows="3"
                     placeholder="Message sent to the employer"
-                  ></textarea>
+                  ><%=userBio.address %></textarea>
                 </div>
               </div>
               <div class="mt-2 pt-2">
@@ -145,7 +107,12 @@
                   type="submit"
                   value="Submit"
                 />
-                <a href="/" class="link-dark">Alredy Have Account?</a>
+                <a
+                  type="button"
+                  href="/dashboard"
+                  class="btn btn-secondary py-2 px-5"
+                  >Back</a
+                >
               </div>
             </form>
           </div>

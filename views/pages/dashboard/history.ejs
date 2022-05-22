@@ -1,0 +1,28 @@
+<div class="d-flex align-items-start mt-5 flex-column">
+  <h3 class="mb-2"><%= pageTitle %></h3>
+</div>
+<div class="table-responsive mt-3">
+  <table class="table container-md">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Score</th>
+        <th scope="col">Gold</th>
+        <th scope="col">WIN/LOSE</th>
+        <th scope="col">EXP</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% data.map((data,index)=>{ %>
+      <tr>
+        <th scope="row"><%= index + 1 %></th>
+        <td cl><%= data.score %></td>
+        <td><%= data.gold %> Gold</td>
+        <td class="<%= data.winLose ? "text-success" :"text-danger"%>"><%= data.winLose ? "WIN":"LOSE" %></td>
+        <td><%= data.exp %> EXP</td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
+  <a type="button" href="/dashboard" class="btn btn-success px-5">Back</a>
+</div>

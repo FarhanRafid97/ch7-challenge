@@ -1,0 +1,53 @@
+<h3 class="my-3 mt-5">DETAIL USER</h3>
+
+<div class="table-responsive mt-3">
+  <table class="table table-bordered border-dark table-responsive-md">
+    <tbody>
+      <tr>
+        <th scope="row">Username</th>
+        <td><%= dataUser.username %></td>
+      </tr>
+      <tr>
+        <th scope="row">Email</th>
+        <td><%= dataUser.email %></td>
+      </tr>
+      <tr>
+        <th scope="row">First Name</th>
+        <td><%= dataUser.userGameBiodata.firstName %></td>
+      </tr>
+      <tr>
+        <th scope="row">Last Name</th>
+        <td><%= dataUser.userGameBiodata.lastName %></td>
+      </tr>
+      <tr>
+        <th scope="row">Address</th>
+        <td><%= dataUser.userGameBiodata.address %></td>
+      </tr>
+      <tr>
+        <th scope="row">Phone Number</th>
+        <td><%= dataUser.userGameBiodata.phoneNumber %></td>
+      </tr>
+      <tr>
+        <th scope="row">Jenis Kelamin</th>
+        <td><%= dataUser.userGameBiodata.jenisKelamin %></td>
+      </tr>
+      <tr>
+        <th scope="row">Birthday</th>
+        <td><%= dataUser.userGameBiodata.birthday %></td>
+      </tr>
+      <tr>
+        <th scope="row">Join Date</th>
+        <td><%= dataUser.userGameBiodata.createdAt %></td>
+      </tr>
+    </tbody>
+  </table>
+  <div>
+    <a type="button" href="/dashboard" class="btn btn-success px-5">Back</a>
+    <a
+      type="button"
+      href="/dashboard/history/<%= dataUser.id %>"
+      class="btn btn-warning px-5"
+      >History</a
+    >
+  </div>
+</div>

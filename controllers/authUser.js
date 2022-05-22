@@ -14,16 +14,16 @@ const userLogin = async (req, res) => {
     );
     if (!isPasswordCorrect)
       return res.status(400).json({ msg: 'password anda salah' });
-    res.cookie('logged', process.env.COOKIES_SECRET_KEY, {
-      httpOnly: true,
-      maxAge: 24 * 60 * 60 * 1000,
-    });
+    res.cookie(
+      'logged',
+      { key: process.env.COOKIES_SECRET_KEY, data: userLogin },
+      {
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000,
+      }
+    );
 
-    res.status(200).json({
-      id: userLogin.id,
-      username: userLogin.username,
-      email: userLogin.email,
-    });
+    res.redirect('/dashboard');
   } catch (error) {
     res.status(400).json({ msg: error.message });
   }
@@ -35,7 +35,8 @@ const logoutUser = async (req, res) => {
     if (!cookiesLogged) return res.sendStatus(204);
 
     res.clearCookie('logged');
-    return res.sendStatus(200).json({ msg: 'and berhasil logout' });
+
+    return res.redirect('/');
   } catch (error) {
     console.log(error.message);
   }

@@ -1,7 +1,7 @@
 const express = require('express');
 const {
   addUser,
-  detailUser,
+
   getUser,
   deleteUser,
   editUser,
@@ -17,8 +17,8 @@ const { isLogged } = require('../middleware/isLogged');
 
 const routerUser = express.Router();
 
-routerUser.get('/api/user', isLogged, getUser);
-routerUser.get('/api/user/:id', isLogged, detailUser);
+routerUser.get('/api/user', getUser);
+
 routerUser.post('/api/user', addUser);
 routerUser.put('/api/user/:id', editUser);
 routerUser.delete('/api/user/:id', deleteUser);
