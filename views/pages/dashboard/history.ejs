@@ -1,6 +1,9 @@
 <div class="d-flex align-items-start mt-5 flex-column">
   <h3 class="mb-2"><%= pageTitle %></h3>
 </div>
+<% if (msg.length !== 0) { %>
+  <div class="alert alert-success" role="alert"><%= msg %></div>
+  <% } %>
 <div class="table-responsive mt-3">
   <table class="table container-md">
     <thead>
@@ -10,6 +13,7 @@
         <th scope="col">Gold</th>
         <th scope="col">WIN/LOSE</th>
         <th scope="col">EXP</th>
+        <th scope="col">delete</th>
       </tr>
     </thead>
     <tbody>
@@ -20,6 +24,18 @@
         <td><%= data.gold %> Gold</td>
         <td class="<%= data.winLose ? "text-success" :"text-danger"%>"><%= data.winLose ? "WIN":"LOSE" %></td>
         <td><%= data.exp %> EXP</td>
+        
+        <td><form method="POST" action="/dashboard/history/delete/<%=data.idUser %>?_method=DELETE">
+            <input
+            type="hidden"
+            name="id"
+            type="text"        
+            class="form-control form-control-lg"            
+            value="<%=data.id %>"
+          />
+            <button type="submit" class="btn btn-danger">DELETE</button>
+        </form>
+    </td>
       </tr>
       <% }) %>
     </tbody>

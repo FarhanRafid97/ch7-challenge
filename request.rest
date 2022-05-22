@@ -62,3 +62,12 @@ Content-Type: application/json
       "winLose": true,
       "exp": 80
 }
+
+###
+DELETE http://localhost:7899/dashboard/history/delete/20
+Content-Type: application/json
+
+{
+     "id":1
+}
+

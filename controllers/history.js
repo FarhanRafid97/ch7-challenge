@@ -25,4 +25,16 @@ const getUserHistory = async (req, res) => {
   });
 };
 
-module.exports = { postHistory, getUserHistory };
+const deleteHistory = async (req, res) => {
+  const { idUser } = req.params;
+  const { id } = req.body;
+  await UserGameHistory.destroy({
+    where: {
+      id: id,
+    },
+  });
+  req.flash('msg', 'delete data success');
+  res.redirect(`/dashboard/history/${idUser}`);
+};
+
+module.exports = { postHistory, getUserHistory, deleteHistory };
