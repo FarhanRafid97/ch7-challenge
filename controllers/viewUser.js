@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const { UserGame, UserGameBiodata } = require('../models');
 
 const loginUserView = async (req, res) => {
-  res.render('pages/loginPage/login');
+  res.render('pages/loginPage/login', { msgFail: req.flash('msgFail') });
 };
 const registerView = async (req, res) => {
   res.render('pages/loginPage/register', {

@@ -16,6 +16,9 @@
             <h3 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px">
               Log in
             </h3>
+            <% if (msgFail.length !== 0) { %>
+            <div class="alert alert-danger" role="alert"><%= msgFail %></div>
+            <% } %>
 
             <div class="form-outline mb-4">
               <input

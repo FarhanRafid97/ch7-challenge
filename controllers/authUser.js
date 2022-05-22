@@ -12,8 +12,12 @@ const userLogin = async (req, res) => {
       password,
       userLogin.password
     );
-    if (!isPasswordCorrect)
-      return res.status(400).json({ msg: 'password anda salah' });
+    if (!isPasswordCorrect) {
+      req.flash('msgFail', 'Email or Password invalid');
+
+      return res.redirect('/');
+    }
+
     res.cookie(
       'logged',
       { key: process.env.COOKIES_SECRET_KEY, data: userLogin },

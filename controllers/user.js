@@ -18,7 +18,7 @@ const addUser = async (req, res) => {
     });
 
     if (findUsername) {
-      req.flash('msgFail', 'username alredy exist');
+      req.flash('msgFail', 'email alredy exist');
       return res.redirect('/register');
     }
     const hashPassword = await bcrypt.hash(req.body.password, 12);
