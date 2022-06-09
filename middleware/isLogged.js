@@ -1,9 +1,5 @@
-const isLogged = (req, res, next) => {
-  const authHeader = req.cookies.logged?.key;
+module.exports = (req, res, next) => {
+  if (req.isAuthenticated()) return next();
 
-  if (authHeader !== process.env.COOKIES_SECRET_KEY) return res.redirect('/');
-
-  next();
+  res.redirect('/');
 };
-
-module.exports = { isLogged };

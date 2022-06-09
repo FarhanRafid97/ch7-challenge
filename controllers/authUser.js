@@ -1,46 +1,50 @@
 const { UserGame } = require('../models');
 const bcrypt = require('bcrypt');
+const passport = require('../lib/passport');
 
-const userLogin = async (req, res) => {
-  const { username, password } = req.body;
+// const userLogin = async (req, res) => {
+//   const { username, password } = req.body;
+//   try {
+//     const userLogin = await UserGame.findOne({
+//       where: { username: username },
+//     });
+//     if (!userLogin) return res.status(400).json({ msg: 'email tidak ada' });
+//     const isPasswordCorrect = await bcrypt.compare(
+//       password,
+//       userLogin.password
+//     );
+//     if (!isPasswordCorrect) {
+//       req.flash('msgFail', 'Email or Password invalid');
+
+//       return res.redirect('/');
+//     }
+
+//     res.cookie(
+//       'logged',
+//       { key: process.env.COOKIES_SECRET_KEY, data: userLogin },
+//       {
+//         httpOnly: true,
+//         maxAge: 24 * 60 * 60 * 1000,
+//       }
+//     );
+
+//     res.redirect('/dashboard');
+//   } catch (error) {
+//     res.status(400).json({ msg: error.message });
+//   }
+// };
+
+const loginUser = passport.authenticate('local', {
+  successRedirect: '/dashboard',
+  failureMessage: '/register',
+  failureFlash: true,
+});
+
+const logoutUser = (req, res) => {
   try {
-    const userLogin = await UserGame.findOne({
-      where: { username: username },
+    req.session.destroy(function (err) {
+      res.redirect('/'); //Inside a callback… bulletproof!
     });
-    if (!userLogin) return res.status(400).json({ msg: 'email tidak ada' });
-    const isPasswordCorrect = await bcrypt.compare(
-      password,
-      userLogin.password
-    );
-    if (!isPasswordCorrect) {
-      req.flash('msgFail', 'Email or Password invalid');
-
-      return res.redirect('/');
-    }
-
-    res.cookie(
-      'logged',
-      { key: process.env.COOKIES_SECRET_KEY, data: userLogin },
-      {
-        httpOnly: true,
-        maxAge: 24 * 60 * 60 * 1000,
-      }
-    );
-
-    res.redirect('/dashboard');
-  } catch (error) {
-    res.status(400).json({ msg: error.message });
-  }
-};
-
-const logoutUser = async (req, res) => {
-  try {
-    const cookiesLogged = req.cookies.logged;
-    if (!cookiesLogged) return res.sendStatus(204);
-
-    res.clearCookie('logged');
-
-    return res.redirect('/');
   } catch (error) {
     console.log(error.message);
   }
@@ -78,4 +82,4 @@ const changePassword = async (req, res) => {
   }
 };
 
-module.exports = { userLogin, logoutUser, changePassword };
+module.exports = { loginUser, logoutUser, changePassword };

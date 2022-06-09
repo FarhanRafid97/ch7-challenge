@@ -11,6 +11,7 @@ const registerView = async (req, res) => {
   res.render('pages/loginPage/register', {
     msg: req.flash('msg'),
     msgFail: req.flash('msgFail'),
+    layout: 'layouts/login',
   });
 };
 const dashboardView = async (req, res) => {

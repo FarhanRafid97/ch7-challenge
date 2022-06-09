@@ -8,10 +8,12 @@ const methodOverride = require('method-override');
 const dotenv = require('dotenv');
 const { routeView } = require('./route/routeView');
 const { routeHistory } = require('./route/routeHistory');
+const passport = require('./lib/passport');
 
 const PORT = 7899;
 
 dotenv.config();
+const ONE_HOUR = 60 * 60 * 1000;
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -20,13 +22,15 @@ app.set('view engine', 'ejs');
 app.use(cookieParser('secret'));
 app.use(
   session({
-    cookie: { axAge: 6000 },
+    cookie: { maxAge: ONE_HOUR },
     secret: 'secret',
     resave: true,
     saveUninitialized: true,
   })
 );
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 //======
 app.use(express.static('public'));
 app.use(methodOverride('_method'));

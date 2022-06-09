@@ -11,7 +11,7 @@ const {
   layout: 'layouts/main',
 });
 
-const { isLogged } = require('../middleware/isLogged');
+const isLogged = require('../middleware/isLogged');
 
 const routeView = express.Router();
 
@@ -21,6 +21,6 @@ routeView.get('/dashboard', isLogged, dashboardView);
 routeView.get('/dashboard/create', createUserView);
 routeView.post('/dashboard/create', createUser);
 routeView.get('/dashboard/edit/:id', editUser);
-routeView.get('/dashboard/:id', isLogged, detailUser);
+routeView.get('/dashboard/:id', detailUser);
 
 module.exports = { routeView };

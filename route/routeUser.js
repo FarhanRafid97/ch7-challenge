@@ -9,7 +9,7 @@ const {
 
 //=== auth user
 const {
-  userLogin,
+  loginUser,
   logoutUser,
   changePassword,
 } = require('../controllers/authUser');
@@ -24,7 +24,7 @@ routerUser.put('/api/user/:id', editUser);
 routerUser.delete('/api/user/:id', deleteUser);
 
 //====> AUTH USER  <===
-routerUser.post('/api/login', userLogin);
+routerUser.post('/api/login', loginUser);
 routerUser.put('/api/user/changePassword/:id', changePassword);
 routerUser.delete('/api/logout', logoutUser);
 
