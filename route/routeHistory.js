@@ -11,4 +11,4 @@ routeHistory.post('/history', postHistory);
 routeHistory.delete('/dashboard/history/delete/:idUser', deleteHistory);
 routeHistory.get('/dashboard/history/:id', getUserHistory);
 
-module.exports = { routeHistory };
+module.exports = routeHistory;

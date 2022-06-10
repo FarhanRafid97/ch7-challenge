@@ -1,6 +1,8 @@
 'use strict';
 const { Model } = require('sequelize');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
 module.exports = (sequelize, DataTypes) => {
   class UserGame extends Model {
     /**
@@ -30,6 +32,18 @@ module.exports = (sequelize, DataTypes) => {
       } catch (error) {
         return Promise.reject(error);
       }
+    }
+    generateToken() {
+      // Jangan memasukkan password ke dalam payload
+      const payload = {
+        id: this.id,
+        username: this.username,
+      };
+      // Rahasia ini nantinya kita pakai untuk memverifikasi apakah token ini benar-benar berasal dari aplikasi kita
+      const secret = 'the most secret key';
+      // Membuat token dari data-data diatas
+      const token = jwt.sign(payload, secret);
+      return token;
     }
   }
   UserGame.init(

@@ -1,7 +1,6 @@
 const express = require('express');
 const {
   addUser,
-
   getUser,
   deleteUser,
   editUser,
@@ -12,20 +11,21 @@ const {
   loginUser,
   logoutUser,
   changePassword,
+  whoAmI,
 } = require('../controllers/authUser');
-const { isLogged } = require('../middleware/isLogged');
+const isLoggedUser = require('../middleware/isLoggedUser');
 
 const routerUser = express.Router();
 
-routerUser.get('/api/user', getUser);
-
-routerUser.post('/api/user', addUser);
-routerUser.put('/api/user/:id', editUser);
-routerUser.delete('/api/user/:id', deleteUser);
+routerUser.get('/user', getUser);
+routerUser.post('/user', addUser);
+routerUser.put('/user/:id', editUser);
+routerUser.delete('/user/:id', deleteUser);
 
 //====> AUTH USER  <===
-routerUser.post('/api/login', loginUser);
-routerUser.put('/api/user/changePassword/:id', changePassword);
-routerUser.delete('/api/logout', logoutUser);
+routerUser.post('/login', loginUser);
+routerUser.put('/user/changePassword/:id', changePassword);
+routerUser.delete('/logout', logoutUser);
+routerUser.get('/whoAmi', isLoggedUser, whoAmI);
 
-module.exports = { routerUser };
+module.exports = routerUser;

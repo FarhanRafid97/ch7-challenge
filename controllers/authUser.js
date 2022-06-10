@@ -34,11 +34,20 @@ const passport = require('../lib/passport');
 //   }
 // };
 
-const loginUser = passport.authenticate('local', {
-  successRedirect: '/dashboard',
-  failureMessage: '/register',
-  failureFlash: true,
-});
+const loginUser = async (req, res) => {
+  try {
+    const user = await UserGame.authenticate(req.body);
+    const { id, username } = user;
+    res.json({ id, username, accessToken: user.generateToken() });
+  } catch (error) {
+    res.json({ error: error.message });
+  }
+};
+
+const whoAmI = (req, res) => {
+  const curentUser = req.user;
+  res.json(curentUser);
+};
 
 const logoutUser = (req, res) => {
   try {
@@ -82,4 +91,4 @@ const changePassword = async (req, res) => {
   }
 };
 
-module.exports = { loginUser, logoutUser, changePassword };
+module.exports = { loginUser, whoAmI, logoutUser, changePassword };

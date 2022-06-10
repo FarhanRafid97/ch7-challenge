@@ -14,6 +14,13 @@ const registerView = async (req, res) => {
     layout: 'layouts/login',
   });
 };
+const registerAdmin = async (req, res) => {
+  res.render('pages/loginPage/registerAdmin', {
+    msg: req.flash('msg'),
+    msgFail: req.flash('msgFail'),
+    layout: 'layouts/login',
+  });
+};
 const dashboardView = async (req, res) => {
   try {
     const dataUserGames = await UserGame.findAll();
@@ -102,4 +109,5 @@ module.exports = {
   detailUser,
   createUser,
   editUser,
+  registerAdmin,
 };

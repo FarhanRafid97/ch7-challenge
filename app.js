@@ -1,14 +1,13 @@
 const express = require('express');
-const { routerUser } = require('./route/routeUser');
+
 const expressLayout = require('express-ejs-layouts');
 const flash = require('connect-flash');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const methodOverride = require('method-override');
 const dotenv = require('dotenv');
-const { routeView } = require('./route/routeView');
-const { routeHistory } = require('./route/routeHistory');
 const passport = require('./lib/passport');
+const indexRoute = require('./route');
 
 const PORT = 7899;
 
@@ -38,9 +37,7 @@ app.use(expressLayout);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.set('layout', './layouts/main');
-app.use(routerUser);
-app.use(routeView);
-app.use(routeHistory);
+app.use('/', indexRoute);
 
 app.listen(PORT, () => {
   console.log(`Listening on http://localhost:${PORT}`);
