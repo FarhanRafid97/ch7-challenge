@@ -1,3 +1,4 @@
+//====FUNCTION LOGIC FOR FIGHT GAME
 const logicFight = (p1, p2) => {
   if (p1 === p2) {
     return 'draw draw';
