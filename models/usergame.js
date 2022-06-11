@@ -11,7 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      UserGame.hasMany(models.PlayGame, {
+        foreignKey: 'p1Id',
+        as: 'player1',
+      });
+      UserGame.hasMany(models.PlayGame, {
+        foreignKey: 'p2Id',
+        as: 'player2',
+      });
       UserGame.hasOne(models.UserGameBiodata, {
         foreignKey: 'idUser',
         as: 'userGameBiodata',
