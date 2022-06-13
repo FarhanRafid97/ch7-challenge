@@ -1,9 +1,10 @@
-const logicFight = require('./function');
+const { logicFight, whoWinLogic } = require('./function');
 
 const wait = {};
 
 const data = {}; // Ini ceritanya model disimpen ke database
-const { Room, PlayGame, UserGame } = require('../models');
+const { Room, PlayGame, UserGame, UserGameHistory } = require('../models');
+const usergamehistory = require('../models/usergamehistory');
 
 function waitEnemyResponse(id) {
   return new Promise((resolve) => {
@@ -14,9 +15,8 @@ function waitEnemyResponse(id) {
 //====CREATE ROOM
 const createRoom = async (req, res) => {
   try {
-    console.log('ada');
     const room = await Room.create(req.body);
-    res.json({ room, accessToken: room.generateToken() });
+    res.json({ room });
   } catch (error) {
     res.json({ msg: error.message });
   }
@@ -25,17 +25,16 @@ const createRoom = async (req, res) => {
 //====GET AlL user
 const allGameUser = async (req, res) => {
   try {
-    console.log('ada');
     const user = await UserGame.findAll({ include: ['player1', 'player2'] });
     res.json({ user });
   } catch (error) {
     res.json({ msg: error.message });
   }
 };
-let p1;
-let hasil;
 
 //=== LOGIC PLAY GAME
+let p1;
+let hasil;
 
 const playGame = async (req, res) => {
   const id = req.params.id;
@@ -47,14 +46,54 @@ const playGame = async (req, res) => {
   });
   if (!isRoomAvailable) return res.json({ msg: 'room tidak ada' });
   const { p1Id, p2Id, p1choose, p2choose } = req.body;
+  let player1 = { idPlayer1: null, scoreP1: 0 };
+  let player2 = { idPlayer2: null, scoreP2: 0 };
   const isAvailable = await PlayGame.findAll({ where: { roomId: id } });
 
-  console.log(isAvailable[isAvailable.length - 1]);
+  const finalScore = isAvailable.map((score) => {
+    player1.idPlayer1 = score.p1Id;
+    player2.idPlayer2 = score.p2Id;
+    if (score.condition === 'player 1 Win') {
+      player1.scoreP1 += 1;
+    } else if (score.condition === 'player 1 Lose') {
+      player2.scoreP2 += 1;
+    }
+  });
+
+  //====logic for room expire and input to history
   if (
     isAvailable.length >= 3 &&
     isAvailable[isAvailable.length - 1].p2choose !== null
-  )
-    return res.json({ msg: 'room kadaluarsa', scoreAkhir: isRoomAvailable });
+  ) {
+    let result = whoWinLogic(player1.scoreP1, player2.scoreP2);
+
+    //====input history to database
+    const isHistoryAvail = await UserGameHistory.findOne({
+      where: { idRoom: id },
+    });
+    if (!isHistoryAvail) {
+      await UserGameHistory.create({
+        idRoom: id,
+        idUser: player1.idPlayer1,
+        idEnemy: player2.idPlayer2,
+        winLose: result.player1,
+      });
+      await UserGameHistory.create({
+        idRoom: id,
+        idUser: player2.idPlayer2,
+        idEnemy: player1.idPlayer1,
+        winLose: result.player2,
+      });
+    }
+
+    return res.json({
+      msg: 'room kadaluarsa',
+
+      result,
+
+      scoreAkhir: isRoomAvailable,
+    });
+  }
 
   if (!wait[id]) {
     p1 = p1choose;
@@ -66,8 +105,6 @@ const playGame = async (req, res) => {
     // Player 1 menunggu respons player 2
     await waitEnemyResponse(id);
   } else {
-    hasil = logicFight(p1, p2choose);
-    // Player 2 merespons ke player 1 untuk selesai menunggu
     PlayGame.update(
       {
         p2Id,

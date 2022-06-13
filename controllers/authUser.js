@@ -2,38 +2,6 @@ const { UserGame } = require('../models');
 const bcrypt = require('bcrypt');
 const passport = require('../lib/passport');
 
-// const userLogin = async (req, res) => {
-//   const { username, password } = req.body;
-//   try {
-//     const userLogin = await UserGame.findOne({
-//       where: { username: username },
-//     });
-//     if (!userLogin) return res.status(400).json({ msg: 'email tidak ada' });
-//     const isPasswordCorrect = await bcrypt.compare(
-//       password,
-//       userLogin.password
-//     );
-//     if (!isPasswordCorrect) {
-//       req.flash('msgFail', 'Email or Password invalid');
-
-//       return res.redirect('/');
-//     }
-
-//     res.cookie(
-//       'logged',
-//       { key: process.env.COOKIES_SECRET_KEY, data: userLogin },
-//       {
-//         httpOnly: true,
-//         maxAge: 24 * 60 * 60 * 1000,
-//       }
-//     );
-
-//     res.redirect('/dashboard');
-//   } catch (error) {
-//     res.status(400).json({ msg: error.message });
-//   }
-// };
-
 const loginUser = async (req, res) => {
   try {
     const user = await UserGame.authenticate(req.body);

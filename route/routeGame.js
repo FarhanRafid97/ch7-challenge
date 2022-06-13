@@ -5,6 +5,6 @@ const routeGame = express.Router();
 const isLoggedUser = require('../middleware/isLoggedUser');
 
 routeGame.post('/create-room', createRoom);
-routeGame.post('/play-game/:id', isLoggedUser, playGame);
+routeGame.post('/play-game/:id', playGame);
 
 module.exports = routeGame;

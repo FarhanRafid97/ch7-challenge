@@ -8,6 +8,14 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      idRoom: {
+        allowNull: false,
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Rooms',
+          key: 'id',
+        },
+      },
       idUser: {
         allowNull: false,
         type: Sequelize.INTEGER,
@@ -16,22 +24,20 @@ module.exports = {
           key: 'id',
         },
       },
-      score: {
+
+      idEnemy: {
         allowNull: false,
         type: Sequelize.INTEGER,
-      },
-      gold: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
+        references: {
+          model: 'UserGames',
+          key: 'id',
+        },
       },
       winLose: {
         allowNull: false,
-        type: Sequelize.BOOLEAN,
+        type: Sequelize.STRING,
       },
-      exp: {
-        allowNull: false,
-        type: Sequelize.INTEGER,
-      },
+
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

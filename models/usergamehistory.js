@@ -16,11 +16,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   UserGameHistory.init(
     {
+      idRoom: DataTypes.INTEGER,
       idUser: DataTypes.INTEGER,
-      score: DataTypes.INTEGER,
-      gold: DataTypes.INTEGER,
-      winLose: DataTypes.BOOLEAN,
-      exp: DataTypes.INTEGER,
+      idEnemy: DataTypes.INTEGER,
+      winLose: DataTypes.STRING,
     },
     {
       sequelize,
