@@ -37,6 +37,7 @@ const playGame = async (req, res) => {
   if (!isRoomAvailable) return res.json({ msg: 'room tidak ada' });
 
   const { p1Id, p2Id, p1choose, p2choose } = req.body;
+
   let player1 = { idPlayer1: null, scoreP1: 0 };
   let player2 = { idPlayer2: null, scoreP2: 0 };
 
@@ -97,6 +98,7 @@ const playGame = async (req, res) => {
     // Player 1 menunggu respons player 2
     await waitEnemyResponse(id);
   } else {
+    hasil = logicFight(p1, p2choose);
     PlayGame.update(
       {
         p2Id,
