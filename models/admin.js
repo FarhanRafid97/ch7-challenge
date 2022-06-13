@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
         console.log(admin);
         if (!admin) return Promise.reject('admin not found');
         const isPassValid = await bcrypt.compare(password, admin.password);
+        req.flash('msgFail', 'register');
         if (!isPassValid) Promise.reject('password invalid');
         return Promise.resolve(admin);
       } catch (error) {

@@ -17,7 +17,8 @@ const registerAdmin = async (req, res, next) => {
 
 const loginAdmin = passport.authenticate('local', {
   successRedirect: '/dashboard',
-  failureMessage: '/register',
+  failureRedirect: '/register-admin',
+  failureMessage: 'register',
   failureFlash: true,
 });
 
