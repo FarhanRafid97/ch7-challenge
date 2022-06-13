@@ -3,8 +3,7 @@ const { logicFight, whoWinLogic } = require('./function');
 const wait = {};
 
 const data = {}; // Ini ceritanya model disimpen ke database
-const { Room, PlayGame, UserGame, UserGameHistory } = require('../models');
-const usergamehistory = require('../models/usergamehistory');
+const { Room, PlayGame, UserGameHistory } = require('../models');
 
 function waitEnemyResponse(id) {
   return new Promise((resolve) => {
@@ -22,22 +21,13 @@ const createRoom = async (req, res) => {
   }
 };
 
-//====GET AlL user
-const allGameUser = async (req, res) => {
-  try {
-    const user = await UserGame.findAll({ include: ['player1', 'player2'] });
-    res.json({ user });
-  } catch (error) {
-    res.json({ msg: error.message });
-  }
-};
-
 //=== LOGIC PLAY GAME
 let p1;
 let hasil;
 
 const playGame = async (req, res) => {
   const id = req.params.id;
+  //check is room available
   const isRoomAvailable = await Room.findOne({
     where: {
       id,
@@ -45,11 +35,13 @@ const playGame = async (req, res) => {
     include: 'playGame',
   });
   if (!isRoomAvailable) return res.json({ msg: 'room tidak ada' });
+
   const { p1Id, p2Id, p1choose, p2choose } = req.body;
   let player1 = { idPlayer1: null, scoreP1: 0 };
   let player2 = { idPlayer2: null, scoreP2: 0 };
-  const isAvailable = await PlayGame.findAll({ where: { roomId: id } });
 
+  //check how many times player  played
+  const isAvailable = await PlayGame.findAll({ where: { roomId: id } });
   const finalScore = isAvailable.map((score) => {
     player1.idPlayer1 = score.p1Id;
     player2.idPlayer2 = score.p2Id;
@@ -126,4 +118,4 @@ const playGame = async (req, res) => {
 
   res.json(hasil);
 };
-module.exports = { playGame, createRoom, allGameUser };
+module.exports = { playGame, createRoom };

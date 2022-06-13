@@ -10,7 +10,11 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       UserGameHistory.belongsTo(models.UserGame, {
         foreignKey: 'idUser',
-        as: 'userGame',
+        as: 'player',
+      });
+      UserGameHistory.belongsTo(models.UserGame, {
+        foreignKey: 'idEnemy',
+        as: 'enemy',
       });
     }
   }

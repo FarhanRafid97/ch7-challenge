@@ -24,6 +24,10 @@ module.exports = (sequelize, DataTypes) => {
         as: 'userGameBiodata',
       });
       UserGame.hasMany(models.UserGameHistory, {
+        foreignKey: 'idEnemy',
+        as: 'enemygamebiodata',
+      });
+      UserGame.hasMany(models.UserGameHistory, {
         foreignKey: 'idUser',
         as: 'UserGameHistories',
       });

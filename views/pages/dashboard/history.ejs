@@ -9,10 +9,10 @@
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Score</th>
-        <th scope="col">Gold</th>
+        <th scope="col">Your Id</th>
+        <th scope="col">Enemy Username</th>
+        <th scope="col">Id Room</th>
         <th scope="col">WIN/LOSE</th>
-        <th scope="col">EXP</th>
         <th scope="col">delete</th>
       </tr>
     </thead>
@@ -20,10 +20,10 @@
       <% data.map((data,index)=>{ %>
       <tr>
         <th scope="row"><%= index + 1 %></th>
-        <td cl><%= data.score %></td>
-        <td><%= data.gold %> Gold</td>
-        <td class="<%= data.winLose ? "text-success" :"text-danger"%>"><%= data.winLose ? "WIN":"LOSE" %></td>
-        <td><%= data.exp %> EXP</td>
+        <td ><%= data.idUser %></td>
+        <td><%= data.idEnemy %> </td>
+        <td><%= data.idRoom %> </td>
+        <td class="<%= data.winLose  === "win" ? "text-success" :"text-danger"%>"><%= data.winLose %></td>
         
         <td><form method="POST" action="/dashboard/history/delete/<%=data.idUser %>?_method=DELETE">
             <input

@@ -3,6 +3,7 @@ const {
   postHistory,
   getUserHistory,
   deleteHistory,
+  getAllHistory,
 } = require('../controllers/history');
 
 const routeHistory = express.Router();
